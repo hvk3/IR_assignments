@@ -1,0 +1,12 @@
+Steps for reproducing the results:
+
+i) Setup pip on the system. Run 'sudo pip install -r requirements.txt' to install al required dependencies.
+ii) Run 'python preprocess.py -h' to get a list of all the set of functionalities.
+	a) 'python preprocess.py --unzip <filename>' unzips the given document zip.
+	b) 'python preprocess.py --generate_unigram_inverted_index <unzipped content>' generates the JSON file 'unigram_inverted_index.json'.
+iii) Once the JSON is generated(takes upto 5-10 minutes), run 'python query_cli.py -h' to get a list of all the set of functionalities.
+	a) 'python query_cli.py --process_query <query>' accepts a space separated query in any case of the form X <and/or> <not> Y. It returns the relevant documents, their number, and the time taken to process the entire query.
+	b) 'python query_cli.py --process_query <query containing the AND predicate> --use_skip_lists <skip_distance>' performs the Boolean AND query with the specified skip distance.
+	c) 'python query_cli.py --display_wordcloud' displays the wordloud generated from the inverted index.
+	d) 'python query_cli.py --store_wordcloud' stores the wordloud generated from the inverted index into 'wordcloud.png'.
+	e) 'python query_cli.py --test_performance' was used to prepare the analysis report.
