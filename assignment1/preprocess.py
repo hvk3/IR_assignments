@@ -1,11 +1,9 @@
 import argparse
 import json
 import nltk
-import numpy as np
 import os
 import shutil
 import string
-import wordcloud
 import zipfile
 
 # TODO : Handle cases where words are separated by punctuations themselves
@@ -77,7 +75,7 @@ def generate_unigram_inverted_index(dir_path = '20_newsgroups'):
 					text = preprocess(f.read())
 					for token in text:
 						token_ = token.encode('ascii', 'ignore')
-						unigram_inverted_index[token_] = unigram_inverted_index.get(token_, []) + [file_]
+						unigram_inverted_index[token_] = unigram_inverted_index.get(token_, []) + [os.path.join(dir_, file_)]
 			with open('unigram_inverted_index.json', 'w') as f:
 				str_ = json.dumps(unigram_inverted_index)
 				json.dump(str_, f)

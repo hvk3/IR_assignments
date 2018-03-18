@@ -31,7 +31,6 @@ def get_unigram_inverted_index(json_file = 'unigram_inverted_index.json'):
 	except AssertionError:
 		for token in unigram_inverted_index:
 			unigram_inverted_index[token] = sorted(unigram_inverted_index[token])
-		import pdb;pdb.set_trace()
 		with open(json_file, 'w') as f:
 			str_ = json.dumps(unigram_inverted_index)
 			json.dump(str_, f)
@@ -113,7 +112,7 @@ def merge(postingslists, query_type, skip_distance = 1):
 		else:
 			combined_postingslist = list(set(p1).union(set(p2)))
 		postingslists[i + 1] = combined_postingslist
-	# print 'Total skips :', skip_counter
+	print 'Total skips :', skip_counter
 	return postingslists[-1]
 
 def get_results(unigram_inverted_index, keys, query_type = '', skip_distance = 1):
@@ -164,6 +163,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	stemmer = nltk.stem.snowball.SnowballStemmer('english')
 	unigram_inverted_index = get_unigram_inverted_index(args.load_unigram_inverted_index)
+	print unigram_inverted_index
 	generate_wordcloud(unigram_inverted_index, args.display_wordcloud is not None, args.store_wordcloud is not None)
 	if (args.process_query):
 		start_time = time.time()
@@ -182,8 +182,8 @@ if __name__ == '__main__':
 		print 'Number of relevant documents found :', len(answer)
 		if len(answer) == 0:
 			answer = ['None']
-		print 'Documents found :',
-		for doc in answer:
-			print doc,
+		# print 'Documents found :',
+		# for doc in answer:
+		# 	print doc,
 	if (args.test_performance):
 		test_performance(unigram_inverted_index)
